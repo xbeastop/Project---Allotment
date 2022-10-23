@@ -368,14 +368,28 @@ class CollegePortalRepository implements AllotmentRepo
             )
         );
     }
-    function getPlustTwoStreams(): array
+     function getPlustTwoStreams(): array
     {
         return $this->db->fetchArray("SELECT * FROM plustwo_streams");
+    }
+    function getPlustTwoSubjects(): array
+    {
+        return $this->db->fetchArray("SELECT * FROM plustwo_subjects");
+    }
+    function deleteStreamById($id){
+        $this->db->execute("DELETE FROM plustwo_streams WHERE id = '$id'");
     }
     function getStreamNameById($id)
     {
         return self::valueOf(
             $this->db->fetchArray("SELECT name FROM plustwo_streams WHERE id = '$id'")
         );
+    }
+    function updateStreamById($id,$name){
+        $this->db->execute("UPDATE plustwo_streams SET name = '$name' WHERE id= '$id'") or die(mysqli_error($this->db->conn));
+    }
+    function insertPlustwoSubject($name,$belongsTo,$isLanguage){
+        $insert =   "INSERT INTO plustwo_subjects SET name = '$name',belongsTo = '$belongsTo', isLanguage = '$isLanguage'";
+        $this->db->execute($insert) or die(mysqli_error($this->db->conn));
     }
 }

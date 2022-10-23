@@ -11,9 +11,10 @@
     <link rel="stylesheet" href="../Partials/sidebar.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
     <script src="../../Core/Script/jquery.main.js"></script>
-    <link rel="stylesheet" href="dataTables.bootstrap5.min.css">
-    <script src="jquery.dataTables.min.js"></script>
-    <script src="dataTables.bootstrap5.min.js"></script>
+    <link rel="stylesheet" href="../../Core/Style/dataTables.bootstrap5.min.css">
+    <script src="../../Core/Script/jquery.dataTables.min.js"></script>
+    <script src="../../Core/Script/dataTables.bootstrap5.min.js"></script>
+
 
 </head>
 

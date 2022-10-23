@@ -1,6 +1,6 @@
 <?php
     class DatabaseHelper{
-        private $conn;
+        public $conn;
         function __construct($host,$user,$pass,$db)
         {
             $this->conn = mysqli_connect($host,$user,$pass,$db);
