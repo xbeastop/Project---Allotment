@@ -356,8 +356,9 @@ class CollegePortalRepository implements AllotmentRepo
         ) ?? 0;
     }
 
-    function insertPlustwoStream()
+    function insertPlustwoStream($array)
     {
+        $this->db->execute("INSERT INTO plustwo_streams SET name='".$array['name']."'");
     }
     function getStreamByApplicationNumber($applicationNumber)
     {

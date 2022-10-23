@@ -61,7 +61,7 @@
     </li>
     <hr class="my-4">
     <li>
-      <a id="course" href="../Course/index.php">
+      <a id="settings" href="../PlusTwoSettings/index.php">
         <span class="material-symbols-outlined">settings</span>
         <span class="links_name">PlusTwo Settings</span>
       </a>
