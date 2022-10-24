@@ -143,7 +143,7 @@
                                             <td>' . $subject['name'] . '</td>
                                             <td>' . $badge . '</td>
                                             <td>' . $isLanguage . '</td>
-                                            <td class="text-end"><a type="button" href="#" class="btn btn-outline-primary me-2">Rename</a><a type="button" class="text-danger" href="#"><span class="material-symbols-outlined">
+                                            <td class="text-end"><a isLanguage="' . $isLanguage . '" belongsTo="' . $subject['belongsTo'] . '" type="button" subject-id="' . $subject['id'] . '" old-name="' . $subject['name'] . '" data-mdb-toggle="modal" href="#addSubjectModal" class="btn btn-outline-primary  renameModalBtn me-2">Edit</a><a type="button" class="text-danger" href="#"><span class="material-symbols-outlined">
                                         delete
                                     </span>
 </a></td>
@@ -164,7 +164,34 @@
 
 
     </section>
-    <script src="scripts.js"></script>
+    <!-- rename modal -->
+
+    <!-- Modal -->
+    <div class="modal fade" id="renameModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Rename</h5>
+                    <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                    <form action="updateSubject.php" method="POST">
+                        <input type="hidden" name="id" id="id_renameModal">
+                        <div class="form-outline">
+                            <input type="text" required name="name" id="name_renameModal" class="form-control" />
+                            <label class="form-label" for="form12">Name</label>
+                        </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" data-mdb-dismiss="modal">Save changes</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -213,16 +240,22 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">New Subject</h5>
+                    <h5 class="modal-title" id="subjectModalTitle">New Subject</h5>
                     <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="insertSubject.php" method="POST">
+                    <form action="insertSubject.php" id="addSubjectForm" method="POST">
+                        <input type="hidden" name="type" id="actionType" value="insert">
+                        <input type="hidden" name="id" id="subjectIdForUpdate">
                         <div class="form-outline">
-                            <input type="text" name="name" id="form12" class="form-control" />
+                            <input type="text" name="name" id="subjectName" class="form-control" />
                             <label class="form-label" for="form12">Name</label>
                         </div>
-                        <div class="div d-flex align-items-center justify-content-between">
+                        <div class="form-check form-switch mt-2">
+                            <input class="form-check-input" id="isLanguageSwitch" name="isLanguage" value="1" type="checkbox" role="switch" id="flexSwitchCheckDefault" />
+                            <label class="form-check-label" for="flexSwitchCheckDefault">Language</label>
+                        </div>
+                        <div id="belongsToDiv" class=" d-flex align-items-center justify-content-between">
                             <label class=" nowrap" for="select">belongs to</label>
                             <div class="form-outline w-75 mt-2">
                                 <select name="belongsTo[]" class="form-select" multiple id="select">
@@ -248,6 +281,33 @@
 </body>
 <script src="../../Core/Script/mdb.min.js"></script>
 <script>
+    $("#isLanguageSwitch").change(function() {
+        if (this.checked == true)
+            $("#belongsToDiv").children().hide(250)
+        else
+            $("#belongsToDiv").children().show(250)
+    })
+    $(".renameModalBtn").click(function() {
+        $("#addSubjectForm")[0].reset()
+        $("#subjectModalTitle").text("Update Subject")
+        $("#actionType").val("update")
+        $("#subjectName").val($(this).attr("old-name"))
+        $("#subjectIdForUpdate").val($(this).attr("subject-id"))
+        const belongsTo = $(this).attr("belongsTo").split(",")
+        if ($(this).attr("isLanguage") == "Yes") {
+            $("#isLanguageSwitch").prop("checked", true)
+            $("#belongsToDiv").children().hide()
+        } else {
+            $("#belongsToDiv").children().show()
+        } 
+
+        try {
+            belongsTo.forEach(v => $("#select").children(`[value=${v}]`).prop("selected", true))
+        } catch(e){}
+
+        // .prop("checked",true) 
+
+    })
     $(".editNameBtn").click(function() {
         var nameSpanParent = $(this).parent().parent().children("div").first()
         const oldParent = $(this).parent().parent()
@@ -284,6 +344,10 @@
         location.href = `deleteStream.php?id=${$(this).attr("stream-id")}`
     })
     $(".addSubjectBtn").click(function() {
+        $("#subjectModalTitle").text("New Subject")
+        $("#actionType").val("insert")
+        $("#addSubjectForm")[0].reset()
+        $("#belongsToDiv").children().show()
         if ($(this).text() == "Add Subject") {
             $("#addSubjectModal").modal("show")
             $("#select").children(`[value=${$(this).attr("stream-id")}]`).prop("selected", true)

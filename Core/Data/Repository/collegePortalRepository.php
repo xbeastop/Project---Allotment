@@ -392,4 +392,8 @@ class CollegePortalRepository implements AllotmentRepo
         $insert =   "INSERT INTO plustwo_subjects SET name = '$name',belongsTo = '$belongsTo', isLanguage = '$isLanguage'";
         $this->db->execute($insert) or die(mysqli_error($this->db->conn));
     }
+    function updatePlustwoSubject($id,$name,$belongsTo,$isLanguage){
+        $insert =   "UPDATE plustwo_subjects SET name = '$name',belongsTo = '$belongsTo', isLanguage = '$isLanguage' WHERE id='$id'";
+        $this->db->execute($insert) or die(mysqli_error($this->db->conn));
+    }
 }
