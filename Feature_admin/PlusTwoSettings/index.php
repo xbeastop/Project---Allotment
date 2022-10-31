@@ -143,7 +143,8 @@
                                             <td>' . $subject['name'] . '</td>
                                             <td>' . $badge . '</td>
                                             <td>' . $isLanguage . '</td>
-                                            <td class="text-end"><a isLanguage="' . $isLanguage . '" belongsTo="' . $subject['belongsTo'] . '" type="button" subject-id="' . $subject['id'] . '" old-name="' . $subject['name'] . '" data-mdb-toggle="modal" href="#addSubjectModal" class="btn btn-outline-primary  renameModalBtn me-2">Edit</a><a type="button" class="text-danger" href="#"><span class="material-symbols-outlined">
+                                            <td class="text-end"><a isLanguage="' . $isLanguage . '" belongsTo="' . $subject['belongsTo'] . '" type="button" subject-id="' . $subject['id'] . '" old-name="' . $subject['name'] . '" data-mdb-toggle="modal" href="#addSubjectModal" class="btn btn-outline-primary  renameModalBtn me-2">Edit</a>
+                                            <a type="button"  class="text-danger deleteSubject" subject-name="'.$subject['name'].'" subject-id="'.$subject['id'].'" data-mdb-toggle="modal" href="#deleteSubjectModal"><span class="material-symbols-outlined">
                                         delete
                                     </span>
 </a></td>
@@ -164,6 +165,24 @@
 
 
     </section>
+     <!-- Delete Subject Modal -->
+    <div class="modal fade" id="deleteSubjectModal" tabindex="-1" aria-labelledby="deleteSubjectModal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title d-flex align-items-center gap-2" id="deleteModalTitle"><span class="material-symbols-outlined">
+                            warning
+                        </span>Confirm Delete</h5>
+                    <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">Are you sure you want to delete <span id="subjectNameModal" class="fw-bold">Subject</span> </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Close</button>
+                    <button type="button" id="confirmDeleteBtn_subject" class="btn btn-primary" data-mdb-dismiss="modal">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- rename modal -->
 
     <!-- Modal -->
@@ -336,8 +355,18 @@
         }
 
     })
+    //delete subject
+    $(".deleteSubject").click(function() {
+        $("#subjectNameModal").text($(this).attr("subject-name"))
+        $("#confirmDeleteBtn_subject").attr("subject-id", $(this).attr("subject-id"))
+    })
+    $("#confirmDeleteBtn_subject").click(function() {
+        location.href = `deleteSubject.php?id=${$(this).attr("subject-id")}`
+    })
+
+    //delete stream
     $(".deleteBtn").click(function() {
-        $("#streamNameModal").text($(this).attr("stream-name"))
+        $("#streamnamemodal").text($(this).attr("stream-name"))
         $("#confirmDeleteBtn").attr("stream-id", $(this).attr("stream-id"))
     })
     $("#confirmDeleteBtn").click(function() {

@@ -396,4 +396,7 @@ class CollegePortalRepository implements AllotmentRepo
         $insert =   "UPDATE plustwo_subjects SET name = '$name',belongsTo = '$belongsTo', isLanguage = '$isLanguage' WHERE id='$id'";
         $this->db->execute($insert) or die(mysqli_error($this->db->conn));
     }
+    function deletePlustwoSubject($id){
+        $this->db->execute("DELETE FROM plustwo_subjects WHERE id='$id'");
+    }
 }
