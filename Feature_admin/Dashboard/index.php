@@ -115,6 +115,32 @@
                         } ?>
                     </div>
                 </div>
+                <div class="row mt-3">
+                    <div class="col">
+                        <div class="alert alert-primary d-flex align-items-center justify-content-between ">
+                            <div class="d-flex align-items-center gap-2">
+                                <span class="material-symbols-outlined">
+                                    info
+                                </span>
+                                Student portal is currently closed. Tap to open portal
+
+                            </div>
+                            <button class="btn btn-rounded rounded-5 btn-primary btn-sm">Open Portal</button>
+                        </div>
+                    </div>
+                    <div class="col d-none">
+                        <div class="alert alert-success d-flex align-items-center justify-content-between ">
+                            <div class="d-flex align-items-center gap-2">
+                                <span class="material-symbols-outlined">
+                                    insights
+                                </span>
+                                Student portal is Open. Tap to close portal
+
+                            </div>
+                            <button class="btn btn-rounded rounded-5 btn-success btn-sm">Close Portal</button>
+                        </div>
+                    </div>
+                </div>
                 <div class="row mt-5">
                     <div class="col">
                         <h2>Requests</h2>
