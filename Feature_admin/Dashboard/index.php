@@ -116,33 +116,41 @@
                     </div>
                 </div>
                 <div class="row mt-3">
-                    <?php if(!CollegePortalRepository::getInstance()->isPortalActive()) { ?>
-                    <div class="col">
-                        <div class="alert alert-light border border-dark text-black d-flex align-items-center justify-content-between ">
-                            <div class="d-flex align-items-center gap-2">
-                                <span class="material-symbols-outlined">
-                                    info
-                                </span>
-                                Student portal is currently closed. Tap to activate portal
+                    <?php if (!CollegePortalRepository::getInstance()->isPortalActive()) { ?>
+                        <div class="col">
+                            <div class="alert alert-light border border-dark text-black d-flex align-items-center justify-content-between ">
+                                <div class="d-flex align-items-center gap-2">
+                                    <span class="material-symbols-outlined">
+                                        info
+                                    </span>
+                                    Student portal is currently closed. Tap to activate portal
 
+                                </div>
+                                <a href="activatePortal.php" type="button" class="btn btn-rounded btn-outline-secondary rounded-5 btn-sm">Activate </a>
                             </div>
-                            <a href="activatePortal.php" type="button" class="btn btn-rounded btn-outline-secondary rounded-5 btn-sm">Activate </a>
                         </div>
-                    </div>
                     <?php } else { ?>
-                    <div class="col">
-                        <div class="alert alert-success d-flex align-items-center justify-content-between ">
-                            <div class="d-flex align-items-center gap-2">
-                                <span class="material-symbols-outlined">
-                                    insights
-                                </span>
-                                Student portal is Open. Tap to close portal
+                        <div class="col">
+                            <div class="alert gap-3 alert-success d-flex flex-column">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <div class="d-flex align-items-center gap-2">
+                                        <span class="material-symbols-outlined">
+                                            insights
+                                        </span>
+                                        Student portal is Open. Tap to close portal
+
+                                    </div>
+                                    <a href="closePortal.php" class="btn btn-rounded btn-light rounded-5 btn-sm ">Close</a>
+                                </div>
+                                <button onclick="copyLink()" id="copyBtn" class="btn btn-success d-flex align-items-center justify-content-center gap-2">
+                                    <span style="font-size: 1rem;" class="material-symbols-outlined">
+                                        file_copy
+                                    </span>
+                                    Copy link</button>
 
                             </div>
-                            <a href="closePortal.php" class="btn btn-rounded btn-light rounded-5 btn-sm ">Close</a>
                         </div>
-                    </div>
-                    <?php }?>
+                    <?php } ?>
                 </div>
                 <div class="row mt-5">
                     <div class="col">
@@ -507,6 +515,40 @@
 
         function setField(id, value) {
             $(`#${id}`).attr("value", value)
+        }
+
+        function copyToClipboard(textToCopy) {
+            // navigator clipboard api needs a secure context (https)
+            if (navigator.clipboard && window.isSecureContext) {
+                // navigator clipboard api method'
+                return navigator.clipboard.writeText(textToCopy);
+            } else {
+                // text area method
+                let textArea = document.createElement("textarea");
+                textArea.value = textToCopy;
+                // make the textarea out of viewport
+                textArea.style.position = "fixed";
+                textArea.style.left = "-999999px";
+                textArea.style.top = "-999999px";
+                document.body.appendChild(textArea);
+                textArea.focus();
+                textArea.select();
+                return new Promise((res, rej) => {
+                    // here the magic happens
+                    document.execCommand('copy') ? res() : rej();
+                    textArea.remove();
+                });
+            }
+        }
+
+        function copyLink() {
+            copyToClipboard("http://allotment/feature_portal/index.php")
+                .then(() => {
+                    $('#copyBtn').html(`<span style="font-size:1rem" class="material-symbols-outlined">
+done_all
+</span>Copied`)
+                })
+                .catch(() => console.log('error'));
         }
     </script>
 </body>
