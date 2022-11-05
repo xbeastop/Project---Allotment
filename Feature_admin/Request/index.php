@@ -30,6 +30,16 @@
                     <div class="row">
                         <h2>Requests</h2>
                     </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="alert alert-primary d-flex align-items-center gap-2">
+                                <span class="material-symbols-outlined">
+                                    help
+                                </span>
+                                Verify the information provided by students, including their grades and addresses
+                            </div>
+                        </div>
+                    </div>
                     <div class="row mt-3">
                         <table id="table" class="table table-hover align-middle mb-0 bg-white">
                             <thead class="table-white">
@@ -71,7 +81,7 @@
                                     $age = $student['age'];
                                     $passYear = $student['yearOfPass'];
                                     $options = $repo->getSelectedCoursesByApplicationNumber($applicationNumber);
-                                    echo '<tr id="'.$applicationNumber.'">
+                                    echo '<tr id="' . $applicationNumber . '">
                                         <td>
                                             <div class="d-flex align-items-center">
                                                 <div class="">
@@ -264,7 +274,7 @@
 
     }
 
-    $("#verifyStudent").click(()=>{
+    $("#verifyStudent").click(() => {
         $.ajax({
             method: "post",
             url: "verifyStudent.php",
@@ -272,7 +282,7 @@
                 applicationNumber: appNumber,
                 graceMark: $("#graceMark").val()
             },
-            success: function(data){
+            success: function(data) {
                 $(`#${appNumber}`).hide(350)
             }
         })

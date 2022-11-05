@@ -66,7 +66,6 @@
                                     <th>Board</th>
                                     <th>Options</th>
                                     <th>Pass Year</th>
-                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -127,10 +126,6 @@
                                     echo '</div>
                                         </td>
                                         <td>' . $passYear . '</td>
-                                        <td>
-                                            <button onclick=updateModel("' . $applicationNumber . '")
-                                             type="button" data-mdb-toggle="modal" data-mdb-target="#exampleModal" id = "trigger" class="btn btn-danger">Delete</button>
-                                        </td>
                                     </tr>';
                                 }
                                 ?>
