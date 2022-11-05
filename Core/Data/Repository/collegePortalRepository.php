@@ -399,4 +399,13 @@ class CollegePortalRepository implements AllotmentRepo
     function deletePlustwoSubject($id){
         $this->db->execute("DELETE FROM plustwo_subjects WHERE id='$id'");
     }
+    function isPortalActive(): bool{
+        return self::valueOf($this->db->fetchArray("SELECT isActive FROM portal_table"));
+    }
+    function activatePortal(){
+        $this->db->execute("UPDATE portal_table SET isActive = '1'");
+    }
+    function closePortal(){
+        $this->db->execute("UPDATE portal_table SET isActive = '0'");
+    }
 }

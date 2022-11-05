@@ -116,19 +116,21 @@
                     </div>
                 </div>
                 <div class="row mt-3">
+                    <?php if(!CollegePortalRepository::getInstance()->isPortalActive()) { ?>
                     <div class="col">
-                        <div class="alert alert-primary d-flex align-items-center justify-content-between ">
+                        <div class="alert alert-light border border-dark text-black d-flex align-items-center justify-content-between ">
                             <div class="d-flex align-items-center gap-2">
                                 <span class="material-symbols-outlined">
                                     info
                                 </span>
-                                Student portal is currently closed. Tap to open portal
+                                Student portal is currently closed. Tap to activate portal
 
                             </div>
-                            <button class="btn btn-rounded rounded-5 btn-primary btn-sm">Open Portal</button>
+                            <a href="activatePortal.php" type="button" class="btn btn-rounded btn-outline-secondary rounded-5 btn-sm">Activate </a>
                         </div>
                     </div>
-                    <div class="col d-none">
+                    <?php } else { ?>
+                    <div class="col">
                         <div class="alert alert-success d-flex align-items-center justify-content-between ">
                             <div class="d-flex align-items-center gap-2">
                                 <span class="material-symbols-outlined">
@@ -137,9 +139,10 @@
                                 Student portal is Open. Tap to close portal
 
                             </div>
-                            <button class="btn btn-rounded rounded-5 btn-success btn-sm">Close Portal</button>
+                            <a href="closePortal.php" class="btn btn-rounded btn-light rounded-5 btn-sm ">Close</a>
                         </div>
                     </div>
+                    <?php }?>
                 </div>
                 <div class="row mt-5">
                     <div class="col">
