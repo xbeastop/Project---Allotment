@@ -29,19 +29,31 @@ class CollegePortalRepository implements AllotmentRepo
     //overriding
     function insertAllotedStudents($courseId, $students)
     {
-        //TODO("not yet implemented")
-        self::$allotedList[$courseId] = $students;
-        if (!key_exists($courseId, self::$allotedList)) {
-            self::$allotedList[$courseId] = $students;
-        } else {
-            self::$allotedList[$courseId] += $students;
+        // var_dump($courseId, $students);
+        // //TODO("not yet implemented")
+        // self::$allotedList[$courseId] = $students;
+        // if (!key_exists($courseId, self::$allotedList)) {
+        //     self::$allotedList[$courseId] = $students;
+        // } else {
+        //     self::$allotedList[$courseId] += $students;
+        // }
+        foreach ($students as $applicationNumber => $student) {
+            $optionNumber = $student['optionNumber'];
+            $indexMark = $student['indexMark'];
+
+            $this->db->execute("INSERT INTO allotment_table SET 
+            courseId = '$courseId',
+            applicationNumber = '$applicationNumber',
+            optionNumber = '$optionNumber',
+            indexMark = '$indexMark'
+            ") or die(mysqli_error($this->db->conn));
         }
     }
     //overridig
     function getStudentsBySelectedCourse($courseId): array
     {
         $array = $this->db->fetchArray(
-            "SELECT * FROM selected_courses WHERE courseId = '$courseId'"
+            "SELECT * FROM selected_courses WHERE courseId = '$courseId' AND indexMark !=0"
         );
         $result = [];
         foreach ($array as $item) {
@@ -59,8 +71,9 @@ class CollegePortalRepository implements AllotmentRepo
             "SELECT * FROM course_details"
         );
     }
-    function loginAdmin($array){
-        $result = $this->db->fetchArray("SELECT * FROM login_table WHERE email = '".$array['email']."' AND password ='".md5($array['password'])."'");
+    function loginAdmin($array)
+    {
+        $result = $this->db->fetchArray("SELECT * FROM login_table WHERE email = '" . $array['email'] . "' AND password ='" . md5($array['password']) . "'");
         return empty($result) ? null : $result;
     }
     function getAllCourseNames(): array
@@ -358,7 +371,7 @@ class CollegePortalRepository implements AllotmentRepo
 
     function insertPlustwoStream($array)
     {
-        $this->db->execute("INSERT INTO plustwo_streams SET name='".$array['name']."'");
+        $this->db->execute("INSERT INTO plustwo_streams SET name='" . $array['name'] . "'");
     }
     function getStreamByApplicationNumber($applicationNumber)
     {
@@ -368,7 +381,7 @@ class CollegePortalRepository implements AllotmentRepo
             )
         );
     }
-     function getPlustTwoStreams(): array
+    function getPlustTwoStreams(): array
     {
         return $this->db->fetchArray("SELECT * FROM plustwo_streams");
     }
@@ -376,7 +389,8 @@ class CollegePortalRepository implements AllotmentRepo
     {
         return $this->db->fetchArray("SELECT * FROM plustwo_subjects");
     }
-    function deleteStreamById($id){
+    function deleteStreamById($id)
+    {
         $this->db->execute("DELETE FROM plustwo_streams WHERE id = '$id'");
     }
     function getStreamNameById($id)
@@ -385,27 +399,34 @@ class CollegePortalRepository implements AllotmentRepo
             $this->db->fetchArray("SELECT name FROM plustwo_streams WHERE id = '$id'")
         );
     }
-    function updateStreamById($id,$name){
+    function updateStreamById($id, $name)
+    {
         $this->db->execute("UPDATE plustwo_streams SET name = '$name' WHERE id= '$id'") or die(mysqli_error($this->db->conn));
     }
-    function insertPlustwoSubject($name,$belongsTo,$isLanguage){
+    function insertPlustwoSubject($name, $belongsTo, $isLanguage)
+    {
         $insert =   "INSERT INTO plustwo_subjects SET name = '$name',belongsTo = '$belongsTo', isLanguage = '$isLanguage'";
         $this->db->execute($insert) or die(mysqli_error($this->db->conn));
     }
-    function updatePlustwoSubject($id,$name,$belongsTo,$isLanguage){
+    function updatePlustwoSubject($id, $name, $belongsTo, $isLanguage)
+    {
         $insert =   "UPDATE plustwo_subjects SET name = '$name',belongsTo = '$belongsTo', isLanguage = '$isLanguage' WHERE id='$id'";
         $this->db->execute($insert) or die(mysqli_error($this->db->conn));
     }
-    function deletePlustwoSubject($id){
+    function deletePlustwoSubject($id)
+    {
         $this->db->execute("DELETE FROM plustwo_subjects WHERE id='$id'");
     }
-    function isPortalActive(): bool{
+    function isPortalActive(): bool
+    {
         return self::valueOf($this->db->fetchArray("SELECT isActive FROM portal_table"));
     }
-    function activatePortal(){
+    function activatePortal()
+    {
         $this->db->execute("UPDATE portal_table SET isActive = '1'");
     }
-    function closePortal(){
+    function closePortal()
+    {
         $this->db->execute("UPDATE portal_table SET isActive = '0'");
     }
 }
