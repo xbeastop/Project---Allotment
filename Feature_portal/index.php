@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
+    <link rel="stylesheet" href="../Core/Style/mdb.min.css">
     <link rel="stylesheet" href="Style/style.css">
     <script src="../Core/Script/jquery.main.js"></script>
     <!----===== Iconscout CSS ===== -->
@@ -14,10 +15,10 @@
 </head>
 
 <body>
-    <div class="container">
+    <div class="containerr container">
         <header>Registration</header>
 
-        <form action="saveStudentDetails.php" enctype="multipart/form-data" method="post">
+        <form action="saveStudentDetails.php" class=" needs-validation" enctype="multipart/form-data" method="post">
             <div class="form first">
                 <div class="details personal">
                     <span class="title">personal Details</span>
@@ -30,7 +31,7 @@
 
                         <div class="input-field">
                             <lable>Gender</lable>
-                            <select required name="sex" id="sex">
+                            <select required name="sex" class="sex" id="sex">
                                 <option disabled selected>Select gender</option>
                                 <option>Male</option>
                                 <option>Female</option>
@@ -39,7 +40,7 @@
                         </div>
                         <div class="input-field">
                             <lable>Age</lable>
-                            <input required type="text" name="age" id="age">
+                            <input required type="number" name="age" id="age">
                         </div>
 
                         <div class="input-field">
@@ -49,7 +50,7 @@
 
                         <div class="input-field">
                             <lable>Address</lable>
-                            <textarea name="address" id="address"></textarea>
+                            <input required name="address" id="address"></input>
                         </div>
 
                         <div class="input-field">
@@ -76,7 +77,7 @@
                     <div class="fields">
                         <div class="input-field">
                             <lable>Parent</lable>
-                            <textarea name="parentDetails" id="parentDetails"></textarea>
+                            <input required name="parentDetails" id="parentDetails"></input>
                         </div>
 
 
@@ -91,12 +92,12 @@
 
                         <div class="input-field">
                             <lable>Bank account number</lable>
-                            <input required type="text" name="bankAccountNumber" id="bankAccountNumber">
+                            <input required type="number" name="bankAccountNumber" id="bankAccountNumber">
                         </div>
 
                         <div class="input-field">
                             <lable>Adhaar</lable>
-                            <input required type="text" name="adhaar" id="adhaar">
+                            <input required type="number" name="adhaar" id="adhaar">
                         </div>
 
 
@@ -112,7 +113,7 @@
 
                         <div class="input-field">
                             <lable>Discontinue reason</lable>
-                            <textarea type="text" name="discontinueReason" id="discontinueReason"></textarea>
+                            <input type="text" name="discontinueReason" id="discontinueReason"></input>
                         </div>
                     </div>
 
@@ -120,47 +121,50 @@
                             <i class="uil uil-navigator"></i>
                             <span class="btnText">Back</span>
                         </div> -->
-                    <div class="nextBtn">
-                        <span class="btnText">Next</span>
-                        <i class="uil uil-navigator"></i>
+
+                </div>
+
+                <div class="details course">
+                    <span class="title">AddOn Details</span>
+
+                    <div class="row">
+                        <div class="col-8">
+                            <label class="form-label">NCC or NSS</label>
+                            <input class="form-control" type="file" accept="image/*,.pdf" name="nccOrNss" id="nccOrNss">
+                        </div>
+
+                        <div class="col-8">
+                            <label class="form-label">Dependent of Ex-service man</label>
+                            <input class="form-control" type="file" accept="image/*,.pdf" name="dependentOfExServiceMan" id="dependentOfExServiceMan">
+                        </div>
+
+                        <div class="col-8">
+                            <label class="form-label">Handicaped</label>
+                            <input class="form-control" type="file" accept="image/*,.pdf" name="handicaped" id="handicaped">
+                        </div>
+
+                        <div class="col-8">
+                            <label class="form-label">Archivements</label>
+                            <input class="form-control" type="file" accept="image/*,.pdf" name="achievements" id="achievements">
+                        </div>
+
+                        <div class="col-8">
+                            <label class="form-label">Plus Two Mark List</label>
+                            <input class="form-control main" required type="file" accept="image/*,.pdf" name="plustwoMarkList" id="plustwoMarkList">
+                        </div>
+                        <div class="nextBtn btn btn-primary d-flex gap-2">
+                            Next
+                            <i class="uil uil-navigator"></i>
+                        </div>
+
+
+
                     </div>
                 </div>
             </div>
 
             <div class="form second">
-                <div class="details course">
-                    <span class="title">AddOn Details</span>
 
-                    <div class="fields">
-                        <div class="input-field">
-                            <lable>NCC or NSS</lable>
-                            <input type="file" accept="image/*,.pdf" name="nccOrNss" id="nccOrNss">
-                        </div>
-
-                        <div class="input-field">
-                            <lable>Dependent of Ex-service man</lable>
-                            <input type="file" accept="image/*,.pdf" name="dependentOfExServiceMan" id="dependentOfExServiceMan">
-                        </div>
-
-                        <div class="input-field">
-                            <lable>Handicaped</lable>
-                            <input type="file" accept="image/*,.pdf" name="handicaped" id="handicaped">
-                        </div>
-
-                        <div class="input-field">
-                            <lable>Archivements</lable>
-                            <input type="file" accept="image/*,.pdf" name="achievements" id="achievements">
-                        </div>
-                        
-                        <div class="input-field">
-                            <lable>Plus Two Mark List</lable>
-                            <input type="file" accept="image/*,.pdf" name="plustwoMarkList" id="plustwoMarkList">
-                        </div>
-
-
-
-                    </div>
-                </div>
 
                 <div class="details plustwo">
                     <span class="title">Plus two Details</span>
@@ -187,17 +191,17 @@
                         </div>
                         <div class="input-field">
                             <lable>Year of passing</lable>
-                            <input required type="text" name="yearOfPass" id="yearOfPass">
+                            <input required type="number" name="yearOfPass" id="yearOfPass">
                         </div>
 
                         <div class="input-field">
                             <lable>Register number</lable>
-                            <input required type="text" name="registerNumber" id="registerNumber">
+                            <input required type="number" name="registerNumber" id="registerNumber">
                         </div>
 
                         <div class="input-field">
                             <lable>Chances taken</lable>
-                            <input required type="text" name="chanceTaken" id="chanceTaken">
+                            <input required type="number" name="chanceTaken" id="chanceTaken">
                         </div>
 
                         <div class="input-field">
@@ -223,13 +227,13 @@
 
                         <div class="row">
                             <div class="input-field">
-                                <input name="markObteined_1" id="markObteined_1" required type="text" placeholder="Mark Obteined">
+                                <input name="markObteined_1" id="markObteined_1" required type="number" placeholder="Mark Obteined">
                             </div>
                             <div class="input-field">
-                                <input name="markRequired_1" id="markRequired_1" required type="text" placeholder="Mark Required">
+                                <input name="markRequired_1" id="markRequired_1" required type="number" placeholder="Mark Required">
                             </div>
                             <div class="input-field">
-                                <input name="maxMark_1" id="maxMark_1" required type="text" placeholder="Max Mark">
+                                <input name="maxMark_1" id="maxMark_1" required type="number" placeholder="Max Mark">
                             </div>
                             <div class="input-field">
                                 <input name="grade_1" id="grade_1" required type="text" placeholder="Grade">
@@ -238,20 +242,20 @@
 
                         <div class="row">
                             <div class="input-field">
-                                <select name="subject2" id="subject2">
+                                <select name="subject2" required id="subject2">
                                     <option disabled selected>Select Subject</option>
                                 </select>
                             </div>
                         </div>
                         <div class="row">
                             <div class="input-field">
-                                <input name="markObteined_2" id="markObteined_2" required type="text" placeholder="Mark Obteined">
+                                <input name="markObteined_2" id="markObteined_2" required type="number" placeholder="Mark Obteined">
                             </div>
                             <div class="input-field">
-                                <input name="markRequired_2" id="markRequired_2" required type="text" placeholder="Mark Required">
+                                <input name="markRequired_2" id="markRequired_2" required type="number" placeholder="Mark Required">
                             </div>
                             <div class="input-field">
-                                <input name="maxMark_2" id="maxMark_2" required type="text" placeholder="Max Mark">
+                                <input name="maxMark_2" id="maxMark_2" required type="number" placeholder="Max Mark">
                             </div>
                             <div class="input-field">
                                 <input name="grade_2" id="grade_2" required type="text" placeholder="Grade">
@@ -267,13 +271,13 @@
                         </div>
                         <div class="row">
                             <div class="input-field">
-                                <input name="markObteined_3" id="markObteined_3" required type="text" placeholder="Mark Obteined">
+                                <input name="markObteined_3" id="markObteined_3" required type="number" placeholder="Mark Obteined">
                             </div>
                             <div class="input-field">
-                                <input name="markRequired_3" id="markRequired_3" required type="text" placeholder="Mark Required">
+                                <input name="markRequired_3" id="markRequired_3" required type="number" placeholder="Mark Required">
                             </div>
                             <div class="input-field">
-                                <input name="maxMark_3" id="maxMark_3" required type="text" placeholder="Max Mark">
+                                <input name="maxMark_3" id="maxMark_3" required type="number" placeholder="Max Mark">
                             </div>
                             <div class="input-field">
                                 <input name="grade_3" id="grade_3" required type="text" placeholder="Grade">
@@ -289,13 +293,13 @@
                         </div>
                         <div class="row">
                             <div class="input-field">
-                                <input name="markObteined_4" id="markObteined_4" required type="text" placeholder="Mark Obteined">
+                                <input name="markObteined_4" id="markObteined_4" required type="number" placeholder="Mark Obteined">
                             </div>
                             <div class="input-field">
-                                <input name="markRequired_4" id="markRequired_4" required type="text" placeholder="Mark Required">
+                                <input name="markRequired_4" id="markRequired_4" required type="number" placeholder="Mark Required">
                             </div>
                             <div class="input-field">
-                                <input name="maxMark_4" id="maxMark_4" required type="text" placeholder="Max Mark">
+                                <input name="maxMark_4" id="maxMark_4" required type="number" placeholder="Max Mark">
                             </div>
                             <div class="input-field">
                                 <input name="grade_4" id="grade_4" required type="text" placeholder="Grade">
@@ -312,13 +316,13 @@
 
                         <div class="row">
                             <div class="input-field">
-                                <input name="markObteined_5" id="markObteined_5" required type="text" placeholder="Mark Obteined">
+                                <input name="markObteined_5" id="markObteined_5" required type="number" placeholder="Mark Obteined">
                             </div>
                             <div class="input-field">
-                                <input name="markRequired_5" id="markRequired_5" required type="text" placeholder="Mark Required">
+                                <input name="markRequired_5" id="markRequired_5" required type="number" placeholder="Mark Required">
                             </div>
                             <div class="input-field">
-                                <input name="maxMark_5" id="maxMark_5" required type="text" placeholder="Max Mark">
+                                <input name="maxMark_5" id="maxMark_5" required type="number" placeholder="Max Mark">
                             </div>
                             <div class="input-field">
                                 <input name="grade_5" id="grade_5" required type="text" placeholder="Grade">
@@ -335,13 +339,13 @@
 
                         <div class="row">
                             <div class="input-field">
-                                <input name="markObteined_6" id="markObteined_6" required type="text" placeholder="Mark Obteined">
+                                <input name="markObteined_6" id="markObteined_6" required type="number" placeholder="Mark Obteined">
                             </div>
                             <div class="input-field">
-                                <input name="markRequired_6" id="markRequired_6" required type="text" placeholder="Mark Required">
+                                <input name="markRequired_6" id="markRequired_6" required type="number" placeholder="Mark Required">
                             </div>
                             <div class="input-field">
-                                <input name="maxMark_6" id="maxMark_6" required type="text" placeholder="Max Mark">
+                                <input name="maxMark_6" id="maxMark_6" required type="number" placeholder="Max Mark">
                             </div>
                             <div class="input-field">
                                 <input name="grade_6" id="grade_6" required type="text" placeholder="Grade">
@@ -399,12 +403,12 @@
                     </div>
 
                     <div class="buttons">
-                        <div class="backBtn">
+                        <div class="backBtn btn btn-secondary">
                             <i class="uil uil-navigator"></i>
-                            <span class="btnText">Back</span>
+                            Back
                         </div>
 
-                        <button class="sumbit">
+                        <button class="submitBtn" type="sumbit">
                             <span class="btnText">Submit</span>
                             <i class="uil uil-navigator"></i>
                         </button>
@@ -480,30 +484,55 @@
         const form = document.querySelector("form"),
             nextBtn = form.querySelector(".nextBtn"),
             backBtn = form.querySelector(".backBtn"),
-            allInput = form.querySelectorAll(".first input");
+            allInput = form.querySelectorAll(".first input"),
+            first = form.querySelector(".first"),
+            second = form.querySelector(".second")
 
 
         nextBtn.addEventListener("click", () => {
             let move = [];
+            const sex = document.querySelector(".sex")
+            if (sex.value == "Select gender") {
+                move.push(true)
+                sex.style.border = "1px solid red";
+
+            } else {
+                sex.style.border = "1px solid #aaa";
+            }
             allInput.forEach(input => {
-                if (input.value != "") {
+
+                console.log(input.hasAttribute("required"))
+                if (!input.hasAttribute("required") || input.value != "") {
                     input.style.border = "1px solid #aaa";
+                    input.classList.remove("error")
                 } else {
-                    move.push(true);
-                    input.style.border = "1px solid red";
+                    console.log(input)
+                    if (input.type == "date" || input.type =="number" || input.type == "text" || input.type == "email" || input.type == "file") {
+
+                        move.push(true);
+                        input.style.border = "1px solid red";
+                        input.classList.add("error")
+                    }
+                    // if(input.classList.contains("main") || input.type)
                 }
             })
-            if (false) {
+            if (move.length != 0) {
                 form.classList.remove('secActive');
+                const error = form.querySelector(".error")
+                first.scroll(0,error.getBoundingClientRect().bottom + 50);
             } else {
                 form.classList.add('secActive');
+                second.scroll(0,0)
             }
 
-            form.scroll(0, 0);
             move = [];
         })
 
-        backBtn.addEventListener("click", () => form.classList.remove('secActive'));
+        backBtn.addEventListener("click", () => {
+            form.classList.remove('secActive')
+            first.scroll(0, 0);
+
+        });
     </script>
 </body>
 

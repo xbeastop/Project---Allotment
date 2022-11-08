@@ -16,7 +16,7 @@ body {
     background: #e6ecff;
 }
 
-.container {
+.containerr {
     position: relative;
     max-width: 100vw;
     width: 100%;
@@ -27,14 +27,17 @@ body {
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
 }
 
-.container header {
+.containerr header {
     position: relative;
     font-size: 20px;
     font-weight: 600;
     color: #333;
 }
 
-.container header::before {
+.error {
+    border: 1px solid red;
+}
+.containerr header::before {
     content: "";
     position: absolute;
     left: 0;
@@ -45,28 +48,32 @@ body {
     background-color: #4070f4;
 }
 
-.container form {
+.containerr form {
     position: relative;
     margin-top: 16px;
     min-height: 490px;
     background-color: #fff;
-    /* overflow: hidden; */
-    overflow-x: hidden;
-    overflow-y: scroll;
+    overflow: hidden;
 }
 
-.container form::-webkit-scrollbar {
+.containerr form::-webkit-scrollbar {
     display: none;
 }
 
-.container form .form {
+.containerr form .form {
     position: absolute;
     background-color: #fff;
     transition: 0.3s ease;
 }
+.containerr .first{
+    height: 70vh;
+    overflow-y: auto;
+}
 
-.container form .form.second {
+.containerr form .form.second {
     opacity: 0;
+    overflow-y: auto;
+    height: 70vh;
     pointer-events: none;
     transform: translateX(100%);
 }
@@ -83,7 +90,7 @@ form.secActive .form.first {
     transform: translateX(-100%);
 }
 
-.container form .title {
+.containerr form .title {
     display: block;
     margin-top: 16px;
     margin-bottom: 8px;
@@ -92,7 +99,7 @@ form.secActive .form.first {
     color: #333;
 }
 
-.container form .fields {
+.containerr form .fields {
     display: flex;
     align-items: center;
     justify-content: flex-start;
@@ -145,6 +152,7 @@ textarea {
     color: #333;
 }
 
+.submitBtn,
 .nextBtn,
 .backBtn {
     display: flex;
@@ -163,7 +171,7 @@ textarea {
     cursor: pointer;
 }
 
-.container form .btnText {
+.containerr form .btnText {
     font-size: 14px;
     font-weight: 400;
 }
@@ -208,11 +216,11 @@ tr:nth-child(even) {
 }
 
 @media (max-width: 750px) {
-    .container form {
+    .containerr form {
         overflow-y: scroll;
     }
 
-    .container form::-webkit-scrollbar {
+    .containerr form::-webkit-scrollbar {
         display: none;
     }
 

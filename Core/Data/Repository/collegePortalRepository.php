@@ -293,7 +293,7 @@ class CollegePortalRepository implements AllotmentRepo
 
     function getSubjectesByStreamId($id)
     {
-        return $this->db->fetchArray("SELECT id,name FROM plustwo_subjects WHERE belongsTo IS null or belongsTo LIKE '%$id%'");
+        return $this->db->fetchArray("SELECT id,name FROM plustwo_subjects WHERE isLanguage IS true or belongsTo LIKE '%$id%'");
     }
     function getSubjectNameById($id)
     {
