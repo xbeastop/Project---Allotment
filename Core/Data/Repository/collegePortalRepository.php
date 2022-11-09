@@ -42,7 +42,8 @@ class CollegePortalRepository implements AllotmentRepo
             courseId = '$courseId' AND
             applicationNumber = '$applicationNumber'
             ") or die(mysqli_error($this->db->conn));
-        }
+        } 
+        //hei
     }
     //overridig
     function getStudentsBySelectedCourse($courseId): array
