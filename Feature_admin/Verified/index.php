@@ -39,7 +39,7 @@
                                 </span>
                                 Please start the allotment Process only after verifing every students
                             </div>
-                            <button class="btn btn-primary d-flex align-items-center gap-2">Allocate</button>
+                            <button id="allocateBtn" class="btn btn-primary d-flex align-items-center gap-2">Allocate</button>
                         </div>
                     </div>
                     <div class="row mt-3">
@@ -146,6 +146,9 @@
         $("#table").dataTable();
         $("#table").parent().addClass("overflow-auto");
 
+    })
+    $("#allocateBtn").click(e=>{
+        
     })
 </script>
 

@@ -23,12 +23,14 @@ class TestRepo implements AllotmentRepo
         }
     }
 }
-$testRepo = new TestRepo();
+// $testRepo = new TestRepo();
+$testRepo = CollegePortalRepository::getInstance();
 
 $test = new AllotmentService($testRepo);
 
 $test->allotNow();
-var_dump($testRepo->allotedList);
+// var_dump($testRepo->allotedList);
+var_dump(CollegePortalRepository::$allotedList);
 
 
 
