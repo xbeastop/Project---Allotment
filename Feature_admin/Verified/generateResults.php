@@ -1,32 +1,32 @@
 <?php
 session_start();
 if (isset($_SESSION['adminId'])) {
-    require_once __DIR__ . '/vendor/autoload.php';
-    require_once "../../Core/Data/Repository/collegePortalRepository.php";
+  require_once __DIR__ . '/vendor/autoload.php';
+  require_once "../../Core/Data/Repository/collegePortalRepository.php";
 
-    $allotedStudents = CollegePortalRepository::getInstance()->getAllotedStudents();
+  $allotedStudents = CollegePortalRepository::getInstance()->getAllotedStudents();
 
 
-    $start = '<!DOCTYPE html>
+  $start = '<!DOCTYPE html>
 <html>
 <head>
 <style>
-#customers {
+.customers {
   font-family: Arial, Helvetica, sans-serif;
   border-collapse: collapse;
   width: 100%;
 }
 
-#customers td, #customers th {
+.customers td, #customers th {
   border: 1px solid #ddd;
   padding: 8px;
 }
 
-#customers tr:nth-child(even){background-color: #f2f2f2;}
+.customers tr:nth-child(even){background-color: #f2f2f2;}
 
-#customers tr:hover {background-color: #ddd;}
+.customers tr:hover {background-color: #ddd;}
 
-#customers th {
+.customers th {
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: left;
@@ -45,7 +45,7 @@ if (isset($_SESSION['adminId'])) {
 
 <h1>Allotment Result</h1>
 
-<table id="customers">
+<table class="customers">
   <tr>
     <th>App<br>No</th>
     <th>Full Name</th>
@@ -55,15 +55,15 @@ if (isset($_SESSION['adminId'])) {
     <th>Mark</th>
   </tr>';
 
-    $middle = '';
-    foreach ($allotedStudents as $student) {
-        foreach ($student as $key => $val) {
-            $$key = $val;
-        }
-        $studentDetails = CollegePortalRepository::getInstance()->getStudentDetailsById($applicationNumber)[0];
-        $courseName = CollegePortalRepository::getInstance()->getCourseNameById($courseId);
-        $name = $studentDetails['fullName'];
-        $middle .= '<tr>
+  $all = '';
+  foreach ($allotedStudents as $student) {
+    foreach ($student as $key => $val) {
+      $$key = $val;
+    }
+    $studentDetails = CollegePortalRepository::getInstance()->getStudentDetailsById($applicationNumber)[0];
+    $courseName = CollegePortalRepository::getInstance()->getCourseNameById($courseId);
+    $name = $studentDetails['fullName'];
+    $all .= '<tr>
     <td>' . $applicationNumber . '</td>
     <td>' . $name . '<div class="fade">' . $studentDetails['email'] . '</div></td>
     <td>' . $studentDetails['mobileNumber'] . '</td>
@@ -72,19 +72,57 @@ if (isset($_SESSION['adminId'])) {
     <td>' . $indexMark . '</td>
     </tr>
     ';
-    }
+  }
+  $all .= '</table>';
 
-    $end = '
-</table>
+  $byCourses = '';
+  $courses = array_map(fn ($v) => $v['courseId'], $allotedStudents);
+  $courses = array_unique($courses);
+  foreach ($courses as $courseId) {
+    $courseName = CollegePortalRepository::getInstance()->getCourseNameById($courseId);
+    $byCourses .= '
+    <br><br>
+    <h3>' . $courseName . '</h3>
+  <table class="customers">
+  <tr>
+    <th>App<br>No</th>
+    <th>Full Name</th>
+    <th>Phone</th>
+    <th>Option</th>
+    <th>Mark</th>
+  </tr>';
+
+    $temp = '';
+    $allotedStudentsByCourse = array_filter($allotedStudents, fn ($v) => $v['courseId'] == $courseId);
+    foreach ($allotedStudentsByCourse as $student) {
+      foreach ($student as $key => $val) {
+        $$key = $val;
+      }
+      $studentDetails = CollegePortalRepository::getInstance()->getStudentDetailsById($applicationNumber)[0];
+      $name = $studentDetails['fullName'];
+      $temp .= '<tr>
+    <td>' . $applicationNumber . '</td>
+    <td>' . $name . '<div class="fade">' . $studentDetails['email'] . '</div></td>
+    <td>' . $studentDetails['mobileNumber'] . '</td>
+    <td>' . $optionNumber . '</td>
+    <td>' . $indexMark . '</td>
+    </tr>
+    ';
+    }
+    $temp .= '</table>';
+    $byCourses .= $temp;
+  }
+
+  $end = '
 </body>
 </html>
 ';
 
-    $mpdf = new \Mpdf\Mpdf();
-    $mpdf->SetTitle("Allotment Result");
-    $mpdf->WriteHTML($start . $middle . $end);
-    $mpdf->Output("allotmentResult.pdf", 'I');
+  $mpdf = new \Mpdf\Mpdf();
+  $mpdf->SetTitle("Allotment Result");
+  $mpdf->WriteHTML($start . $all . $byCourses . $end);
+  $mpdf->Output("allotmentResult.pdf", 'I');
 } else {
-    header("location: http://allotment/index.php");
-    die();
+  header("location: http://allotment/index.php");
+  die();
 }
