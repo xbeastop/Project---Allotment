@@ -1,4 +1,10 @@
-<?php include_once("registrationPortalUC.php"); ?>
+<?php
+require_once "../Core/Data/Repository/collegePortalRepository.php";
+if(!CollegePortalRepository::getInstance()->isPortalActive()){
+    header("location: pageNotFound");
+} else {
+
+include_once("registrationPortalUC.php"); ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -537,3 +543,4 @@
 </body>
 
 </html>
+<?php }
