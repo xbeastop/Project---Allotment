@@ -2,6 +2,7 @@
 
 include_once("C:\wamp64\www\Project - Allotment\Core\Data\Data_source\databaseHelper.php");
 include_once "C:\wamp64\www\Project - Allotment\Core\Models\allotmentInterface.php";
+include_once "C:\wamp64\www\Project - Allotment\Feature_admin\AllotmentService\allotmentService.php";
 include_once "C:\wamp64\www\Project - Allotment\Core\Models\model.php";
 
 class CollegePortalRepository implements AllotmentRepo
@@ -68,9 +69,17 @@ class CollegePortalRepository implements AllotmentRepo
         );
     }
 
-    function resetAllotment()
+    function getAllotedStudents(){
+        return $this->db->fetchArray(
+            "SELECT * FROM selected_courses WHERE isAlloted is true"
+        );
+    }
+
+    function startAllotment()
     {
         $this->db->execute("UPDATE selected_courses SET isAlloted = false WHERE isAlloted IS true") or die(mysqli_error($this->db->conn));
+        $alloter = new AllotmentService($this);
+        $alloter->allotNow();
     }
     function loginAdmin($array)
     {
@@ -94,7 +103,7 @@ class CollegePortalRepository implements AllotmentRepo
     {
         return $this->db->fetchArray(
             "SELECT * FROM student_details WHERE applicationNumber IN(
-                SELECT DISTINCT applicationNumber FROM `selected_courses`  WHERE indexMark != 0
+                SELECT DISTINCT applicationNumber FROM `selected_courses`  WHERE indexMark != '0'
             )"
         );
     }
@@ -124,8 +133,9 @@ class CollegePortalRepository implements AllotmentRepo
         echo "<br>UpdateStudent: $query";
         var_dump($this->db->execute($query));
     }
-    function getStudentDetailsById()
+    function getStudentDetailsById($id)
     {
+        return $this->db->fetchArray("SELECT * FROM `student_details` WHERE applicationNumber = '$id'");
     }
     function getCurrentApplicationNumber()
     {

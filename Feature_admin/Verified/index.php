@@ -39,7 +39,7 @@
                                 </span>
                                 Please start the allotment Process only after verifing every students
                             </div>
-                            <button id="allocateBtn" class="btn btn-primary d-flex align-items-center gap-2">Allocate</button>
+                            <button data-mdb-toggle="modal" data-mdb-target="#confirmAllocation" class="btn btn-primary d-flex align-items-center gap-2">Allocate</button>
                         </div>
                     </div>
                     <div class="row mt-3">
@@ -138,7 +138,24 @@
         </div>
     </section>
     <!-- Modal -->
-
+    <div class="modal fade" id="confirmAllocation" tabindex="-1" aria-labelledby="confirmAllocation" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title d-flex align-items-center gap-2" id="exampleModalLabel">
+                        <span class="material-symbols-outlined">
+                            info
+                        </span>Confirm</h5>
+                    <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">Allocating students will reset their previous allotment results, are you sure you want to continue</div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Close</button>
+                    <button type="button" data-mdb-dismiss="modal" id="allocateBtn" class="btn btn-primary">Continue</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <script src="../../Core/Script/mdb.min.js"></script>
 </body>
 <script>
@@ -147,8 +164,9 @@
         $("#table").parent().addClass("overflow-auto");
 
     })
-    $("#allocateBtn").click(e=>{
-        
+    $("#allocateBtn").click(e => {
+        location.href = "alloteStudents.php"
+
     })
 </script>
 
