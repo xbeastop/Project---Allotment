@@ -5,7 +5,6 @@ require_once("../Core/Models/selectedCourseModel.php");
 require_once("saveDocumentUC.php");
 require_once("registrationPortalUC.php");
 
-var_dump($_POST);
 $studentModel = new StudentModel();
 $studentModel->readValues($_POST);
 $plusTwoModel = new PlusTwoModel();
@@ -32,10 +31,11 @@ if (SaveDocumentUc::SaveStudent($studentModel)) {
     ));
 
     SaveDocumentUc::saveDocuments($file_names);
+    echo "successfull";
+} else {
+    echo "couldn't save";
 }
 
-echo "<br>After filtering studentModel Object";
-var_dump($studentModel);
 
 
 

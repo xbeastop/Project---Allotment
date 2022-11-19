@@ -122,9 +122,7 @@ class CollegePortalRepository implements AllotmentRepo
             }
         }
         $query = "INSERT INTO student_details SET " . $query . ";";
-        echo $query;
         $result = $this->db->execute($query);
-        var_dump($result);
         return $result;
     }
     function updateStudent($id, $key, $value)
@@ -230,7 +228,6 @@ class CollegePortalRepository implements AllotmentRepo
     function insertSelectedCourse($arr)
     {
         foreach ($arr as $item) {
-            echo "<br>";
             $query = "";
             foreach ($item as $key => $value) {
                 $comma = $key !== "applicationNumber" ? "," : "";
@@ -238,8 +235,7 @@ class CollegePortalRepository implements AllotmentRepo
             }
 
             $query = "INSERT INTO selected_courses SET " . $query . ";";
-            echo $query;
-            var_dump($this->db->execute($query));
+            $this->db->execute($query);
         }
     }
 
@@ -330,7 +326,6 @@ class CollegePortalRepository implements AllotmentRepo
     function insertMarklist($arr)
     {
         foreach ($arr as $item) {
-            echo "<br>";
             $query = "";
             foreach ($item as $key => $value) {
                 $comma = $key !== "registerNumber" ? "," : "";
@@ -338,8 +333,7 @@ class CollegePortalRepository implements AllotmentRepo
             }
 
             $query = "INSERT INTO marklist_table SET " . $query . ";";
-            echo $query;
-            var_dump($this->db->execute($query));
+            $this->db->execute($query);
         }
     }
     function getMarkListByApplicationNumber($applicationNumber)
