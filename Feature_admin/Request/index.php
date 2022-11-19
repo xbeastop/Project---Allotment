@@ -27,8 +27,11 @@
         <div class="card bg-white rounded-5 w-100 scroll-y">
             <div class="card-body">
                 <div class="container">
-                    <div class="row">
-                        <h2>Requests</h2>
+                    <div class="row ">
+                        <div class="col align-items-center d-flex justify-content-between">
+                            <div class="h2">Requests</div>
+                            <a type="button" class="btn btn-danger" href="#deletAllModal" data-mdb-toggle="modal">Delete All</a>
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col">
@@ -137,6 +140,24 @@
         </div>
     </section>
     <!-- Modal -->
+<div class="modal fade" id="deletAllModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Confirm</h5>
+        <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">Are you sure you want to delete all the student records?</div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Cancel</button>
+        <button type="button" id="confirmDeleteRecords" class="btn btn-primary">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-fullscreen modal-dialog-scrollable">
             <div class="modal-content">
@@ -204,6 +225,7 @@
     <script src="../../Core/Script/mdb.min.js"></script>
 </body>
 <script>
+    $("#confirmDeleteRecords").click(()=>location.href = "deleteAllRecords.php")
     let appNumber = null
 
     function updateModel(id) {

@@ -12,7 +12,7 @@ class CollegePortalRepository implements AllotmentRepo
     public static $allotedList;
     private function __construct()
     {
-        $this->db = new DatabaseHelper("localhost", "root", "", "college_portal");
+        $this->db = new DatabaseHelper("localhost", "root", "root", "college_portal");
     }
     public static function getInstance()
     {
@@ -433,5 +433,12 @@ class CollegePortalRepository implements AllotmentRepo
     function closePortal()
     {
         $this->db->execute("UPDATE portal_table SET isActive = '0'");
+    }
+    function deleteAllRecords(){
+        $this->db->execute("TRUNCATE TABLE documents_table");
+        $this->db->execute("TRUNCATE TABLE marklist_table");
+        $this->db->execute("TRUNCATE TABLE selected_courses");
+        $this->db->execute("TRUNCATE TABLE student_details");
+        array_map('unlink', array_filter(glob("C:\wamp64\www\Project - Allotment\Core\Data\Data_source\Documents\\*.pdf"), 'is_file'));
     }
 }

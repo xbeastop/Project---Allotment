@@ -136,27 +136,27 @@ include_once("registrationPortalUC.php"); ?>
                     <div class="row">
                         <div class="col-8">
                             <label class="form-label">NCC or NSS</label>
-                            <input class="form-control" type="file" accept="image/*,.pdf" name="nccOrNss" id="nccOrNss">
+                            <input class="form-control" type="file" accept=".pdf" name="nccOrNss" id="nccOrNss">
                         </div>
 
                         <div class="col-8">
                             <label class="form-label">Dependent of Ex-service man</label>
-                            <input class="form-control" type="file" accept="image/*,.pdf" name="dependentOfExServiceMan" id="dependentOfExServiceMan">
+                            <input class="form-control" type="file" accept=".pdf" name="dependentOfExServiceMan" id="dependentOfExServiceMan">
                         </div>
 
                         <div class="col-8">
                             <label class="form-label">Handicaped</label>
-                            <input class="form-control" type="file" accept="image/*,.pdf" name="handicaped" id="handicaped">
+                            <input class="form-control" type="file" accept=".pdf" name="handicaped" id="handicaped">
                         </div>
 
                         <div class="col-8">
                             <label class="form-label">Archivements</label>
-                            <input class="form-control" type="file" accept="image/*,.pdf" name="achievements" id="achievements">
+                            <input class="form-control" type="file" accept=".pdf" name="achievements" id="achievements">
                         </div>
 
                         <div class="col-8">
                             <label class="form-label">Plus Two Mark List</label>
-                            <input class="form-control main" required type="file" accept="image/*,.pdf" name="plustwoMarkList" id="plustwoMarkList">
+                            <input class="form-control main" required type="file" accept=".pdf" name="plustwoMarkList" id="plustwoMarkList">
                         </div>
                         <div class="nextBtn btn btn-primary d-flex gap-2">
                             Next
