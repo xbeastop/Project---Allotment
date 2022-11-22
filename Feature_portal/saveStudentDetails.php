@@ -14,26 +14,39 @@ $selectedCourseModel->readValues($_POST);
 
 // var_dump($studentModel,$plusTwoModel,$plusTwoModel->asArray(),$selectedCourseModel->asArray(4000));
 
-if (SaveDocumentUc::SaveStudent($studentModel)) {
+if (!CollegePortalRepository::getInstance()->isRegisterNumberAlreadyExists($_POST['registerNumber'])) {
+    if (SaveDocumentUc::SaveStudent($studentModel)) {
+        try {
+            RegistrationUc::insertPlustwoDetails($plusTwoModel->asArray());
+        } catch (Exception $e) {
 
-    $filterdFiles = SaveDocumentUc::getFilterdFiles($_FILES);
+            CollegePortalRepository::getInstance()->deleteStudentDetailsByApplicationNumber(SaveDocumentUc::getCurrentApplicationNumber());
+            CollegePortalRepository::getInstance()->deleteMarkListByApplicationNumber($_POST['registerNumber']);
+            header("location: index.php?error=couldn't complete your request, this happens when you enter mark of the same subject twice or didn't enter all 6 subjects");
+            exit();
+        }
+        $filterdFiles = SaveDocumentUc::getFilterdFiles($_FILES);
 
-    $file_names = SaveDocumentUc::getFileNamesFromFilterdFiles($filterdFiles);
-    $dst = BASE_PATH . "\Core\Data\Data_source\Documents\\";
+        $file_names = SaveDocumentUc::getFileNamesFromFilterdFiles($filterdFiles);
+        $dst = BASE_PATH . "\Core\Data\Data_source\Documents\\";
 
-    foreach ($filterdFiles as $key => $value) {
-        move_uploaded_file($value["path"], $dst . $file_names[$key]);
+        foreach ($filterdFiles as $key => $value) {
+            move_uploaded_file($value["path"], $dst . $file_names[$key]);
+        }
+
+
+        RegistrationUc::insertSelectedCourse($selectedCourseModel->asArray(
+            RegistrationUc::getCurrentApplicationNumber()
+        ));
+
+        SaveDocumentUc::saveDocuments($file_names);
+        $applicationNumber = SaveDocumentUc::getCurrentApplicationNumber();
+        header("location: index.php?success=application submited successfuly, your application number is $applicationNumber");
+    } else {
+        header("location: index.php?error=couldn't complete your request, this happens when you already applied");
     }
-
-    RegistrationUc::insertPlustwoDetails($plusTwoModel->asArray());
-    RegistrationUc::insertSelectedCourse($selectedCourseModel->asArray(
-        RegistrationUc::getCurrentApplicationNumber()
-    ));
-
-    SaveDocumentUc::saveDocuments($file_names);
-    echo "successfull";
 } else {
-    echo "couldn't save";
+    header("location: index.php?error=couldn't complete your request, this happens when you already applied");
 }
 
 

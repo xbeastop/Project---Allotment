@@ -8,7 +8,7 @@ class SaveDocumentUc
         return end($exploedTemp);
     }
 
-    private static function getCurrentApplicationNumber()
+    public static function getCurrentApplicationNumber()
     {
         return CollegePortalRepository::getInstance()->getCurrentApplicationNumber();
     }

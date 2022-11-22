@@ -43,8 +43,7 @@ class CollegePortalRepository implements AllotmentRepo
             courseId = '$courseId' AND
             applicationNumber = '$applicationNumber'
             ") or die(mysqli_error($this->db->conn));
-        } 
-        
+        }
     }
     //overridig
     function getStudentsBySelectedCourse($courseId): array
@@ -69,7 +68,8 @@ class CollegePortalRepository implements AllotmentRepo
         );
     }
 
-    function getAllotedStudents(){
+    function getAllotedStudents()
+    {
         return $this->db->fetchArray(
             "SELECT * FROM selected_courses WHERE isAlloted is true"
         );
@@ -228,14 +228,16 @@ class CollegePortalRepository implements AllotmentRepo
     function insertSelectedCourse($arr)
     {
         foreach ($arr as $item) {
-            $query = "";
-            foreach ($item as $key => $value) {
-                $comma = $key !== "applicationNumber" ? "," : "";
-                $query .= $comma . $key . " = " . "'$value'";
-            }
+            if (!is_null($item['courseId'])) {
+                $query = "";
+                foreach ($item as $key => $value) {
+                    $comma = $key !== "applicationNumber" ? "," : "";
+                    $query .= $comma . $key . " = " . "'$value'";
+                }
 
-            $query = "INSERT INTO selected_courses SET " . $query . ";";
-            $this->db->execute($query);
+                $query = "INSERT INTO selected_courses SET " . $query . ";";
+                $this->db->execute($query);
+            }
         }
     }
 
@@ -434,11 +436,24 @@ class CollegePortalRepository implements AllotmentRepo
     {
         $this->db->execute("UPDATE portal_table SET isActive = '0'");
     }
-    function deleteAllRecords(){
+    function deleteAllRecords()
+    {
         $this->db->execute("TRUNCATE TABLE documents_table");
         $this->db->execute("TRUNCATE TABLE marklist_table");
         $this->db->execute("TRUNCATE TABLE selected_courses");
         $this->db->execute("TRUNCATE TABLE student_details");
         array_map('unlink', array_filter(glob("C:\wamp64\www\Project - Allotment\Core\Data\Data_source\Documents\\*.pdf"), 'is_file'));
     }
+
+    function isRegisterNumberAlreadyExists($registerNumber)
+    {
+        return !empty(self::valueOf($this->db->fetchArray("select applicationNumber from student_details WHERE registerNumber = '$registerNumber'")));
+    }
+    function deleteStudentDetailsByApplicationNumber($applicationNumber){
+        $this->db->execute("DELETE FROM student_details WHERE applicationNumber = '$applicationNumber'");
+    }
+    function deleteMarkListByApplicationNumber($registerNumber){
+        $this->db->execute("DELETE FROM marklist_table WHERE registerNumber = '$registerNumber'");
+    }
+
 }
