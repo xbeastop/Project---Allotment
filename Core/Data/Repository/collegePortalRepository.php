@@ -455,5 +455,12 @@ class CollegePortalRepository implements AllotmentRepo
     function deleteMarkListByApplicationNumber($registerNumber){
         $this->db->execute("DELETE FROM marklist_table WHERE registerNumber = '$registerNumber'");
     }
+    function getAllotmentInfo($applicationNumber){
+        return self::valueOf($this->db->fetchArray(
+            "SELECT name FROM course_details 
+            JOIN selected_courses ON id = courseId 
+            WHERE applicationNumber = '$applicationNumber' AND isAlloted IS true "
+        ));
+    }
 
 }

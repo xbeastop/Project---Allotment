@@ -41,7 +41,7 @@ if (!CollegePortalRepository::getInstance()->isRegisterNumberAlreadyExists($_POS
 
         SaveDocumentUc::saveDocuments($file_names);
         $applicationNumber = SaveDocumentUc::getCurrentApplicationNumber();
-        header("location: index.php?success=application submited successfuly, your application number is $applicationNumber");
+        header("location: index.php?success=application submited successfuly, your application number is $applicationNumber. you can check your allotment results <a href =http://allotment/feature_portal/viewResults>here</a>");
     } else {
         header("location: index.php?error=couldn't complete your request, this happens when you already applied");
     }
