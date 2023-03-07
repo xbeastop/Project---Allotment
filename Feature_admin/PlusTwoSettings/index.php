@@ -131,7 +131,8 @@
                                 $count = 0;
                                 foreach ($allSubjects as $subject) {
                                     $badge = "";
-                                    $belongsTo = explode(",", $subject['belongsTo']);
+                                    
+                                    $belongsTo = !is_null($subject['belongsTo']) ? explode(",", $subject['belongsTo']) : [];
                                     foreach ($belongsTo as $streamId) {
                                         $badge .= '<span class="badge badge-primary p-2 me-2">' . CollegePortalRepository::getInstance()->getStreamNameById($streamId) . '</span>';
                                     }

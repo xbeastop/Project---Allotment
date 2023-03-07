@@ -12,7 +12,7 @@ class CollegePortalRepository implements AllotmentRepo
     public static $allotedList;
     private function __construct()
     {
-        $this->db = new DatabaseHelper("localhost", "root", "root", "college_portal");
+        $this->db = new DatabaseHelper("localhost", "root", "", "college_portal");
     }
     public static function getInstance()
     {
